@@ -162,7 +162,10 @@ The Gremlin Console is an interactive text based console. It allows you to exper
    You access your terminal in 
    ![](assets/images/cloud9_install_gremlin_console.png)
 
-3. In the `conf/` subdirectory of the extracted directory, create a file named `neptune-remote.yaml` with the following text. Replace `your-neptune-endpoint` with the hostname or IP address of your Neptune DB instance. The square brackets (`[ ]`) are required. 
+3. In the `conf/` subdirectory of the extracted directory, create a file named `neptune-remote.yaml` with the following text. Replace `your-neptune-endpoint` with the hostname or IP address of your Neptune DB instance. 
+
+    !!! Warning The square brackets (`[ ]`) are required. 
+    
    ```
    hosts: [your-neptune-endpoint]
    port: 8182
