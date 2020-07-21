@@ -48,7 +48,7 @@ Output:
 
 ### List Persons and merchants where they have done transactions
 
-````
+```
 g.V().hasLabel("Person").project("person","merchants").by("name").by(out().fold())
 ```
 
