@@ -17,9 +17,9 @@ In this section, we will create a simple Neptune DB cluster with a primary node 
 4. In the **Engine options** section, select latest version **Neptune 1.0.2.2.R2**
 5. On the **Setting**, specify **DB cluster identifier** ==`neptune-{YOUR_NAME}-cluster`== (for example: `neptune-ejlp-cluster`)
 6. For **Templates**, select **Production**.
-       
-    !!! Info 
-        Selecting this option will makes Amazon Neptune maintain a synchronous replica in a different Availability Zone than the Primary DB instance. Amazon Neptune will automatically fail over to the replica in the case of a planned or unplanned outage of the Primary.
+    
+    > Selecting this option will makes Amazon Neptune maintain a synchronous replica in a different Availability Zone than the Primary DB instance. Amazon Neptune will automatically fail over to the replica in the case of a planned or unplanned outage of the Primary.
+
 7. For **DB instance size**, select `db.r5.large` as the type of your EC2 instance for running the Neptune instance
 8. On the **Availability & durability**, select **Create read replica in different AZ**
 On the **Connectivity**, configure as following
@@ -27,9 +27,9 @@ On the **Connectivity**, configure as following
     - **Subnet group**: Use default
     - **VPC security groups**: Create new VPC Security group, ==`sg_neptune_{YOUR_NAME}`==
     - **Database Port**: Use default (8182)
-1.  It is good to always having a tag, add a Tag with "Key": `purpose` and "Value": `workshop-july-2020`
+9.  It is good to always having a tag, add a Tag with "Key": `purpose` and "Value": `workshop-july-2020`
    
-2.  Click **Additional Configuration**, Database options
+10.  Click **Additional Configuration**, Database options
     - **DB instance identifier**: ==`neptune-{YOUR_NAME}`==
     - **DB parameter group**: **default.neptune1**
     - **DB cluster parameter group**: **default.neptune1**
@@ -226,7 +226,7 @@ The Gremlin Console is an interactive text based console. It allows you to exper
     g.V().limit(1)
     ```
     Since we don't have any data yet, the result will be empty.
-    
+
 8. When you are finished, enter the following to exit the Gremlin Console.
    ```
    :exit
