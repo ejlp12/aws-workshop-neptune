@@ -83,6 +83,60 @@ In this section, you will learn basic Gremlin to Access the Graph.
     g.V().has('name', 'justin').drop()
     ```
 
+## Run a traversal.
+
+1. Returns all person vertices.
+
+    ```
+    g.V().hasLabel('person')
+    ```
+
+
+2. Run a Traversal with values (valueMap()).
+    
+    Returns key, value pairs for all vertices that marko “knows.”
+    ```
+    g.V().has('name', 'marko').out('knows').valueMap()
+    ```
+
+
+4. Specify multiple labels.
+
+    Neptune supports multiple labels for a vertex. When you create a label, you can specify multiple labels by separating them with `::`. This example adds a vertex with three different labels.
+
+    ```
+    g.addV("Label1::Label2::Label3") 
+    ```
+
+    !!! Info
+        The hasLabel step matches this vertex with any of those three labels: hasLabel("Label1"), hasLabel("Label2"), and hasLabel("Label3").
+
+        The `::` delimiter is reserved for this use only.
+
+        You cannot specify multiple labels in the hasLabel step. For example, hasLabel("Label1::Label2") does not match anything.
+
+5.  Specify Time/date.
+
+     ```
+     g.V().property(single, 'lastUpdate', datetime('2018-01-01T00:00:00'))
+     ```
+
+     !!! Info
+         Neptune does not support Java Date. Use the datetime() function instead. datetime() accepts an ISO8061-compliant datetime string.
+         
+         It supports the following formats: YYYY-MM-DD, YYYY-MM-DDTHH:mm, YYYY-MM-DDTHH:mm:SS, and YYYY-MM-DDTHH:mm:SSZ.
+
+6. Here are several drop examples. Delete vertices, properties, or edges.
+
+    ```
+    g.V().hasLabel('person').properties('age').drop().iterate()
+    g.V('1').drop().iterate()
+    g.V().outE().hasLabel('created').drop()
+    ```
+
+    !!! Note
+        The .next() step does not work with .drop(). Use .iterate() instead.
+
  
    
 
