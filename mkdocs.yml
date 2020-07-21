@@ -135,10 +135,8 @@ nav:
     - Create Read Replica: create_read_replica.md
     - Cloning Neptune: cloning_neptune.md
     - Snapshot and Backup: snapshot_and_backup.md
-    - Failover: failover_neptune.md
-    - Monitoring: 
-      - Basic Monitoring: basic_monitoring.md
-      - Performance Insight: performance_insight.md
+    - Failover: failover_neptune.md 
+    - Basic Monitoring: basic_monitoring.md
 
 
 # Google Analytics

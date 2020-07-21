@@ -77,7 +77,7 @@ In this section, you will learn basic Gremlin to Access the Graph.
     g.addE('knows').from(g.V('1')).to(g.V('4')).property('weight', 1.0) 
     ```
 
-    Add the rest of the Modern graph.
+    Add more edges:
 
     ```
     g.V('1').addE('created').to(g.V('3')).property('weight', 0.4).next()
