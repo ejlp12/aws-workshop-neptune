@@ -26,8 +26,8 @@ site_description: >-
   Amazon Neptune Workshop
 
 # Repository
-repo_name: squidfunk/mkdocs-material
-repo_url: https://github.com/squidfunk/mkdocs-material
+repo_name: ejlp12/aws-workshop-neptune
+repo_url: https://github.com/ejlp12/aws-workshop-neptune
 edit_uri: ""
 
 # Copyright
