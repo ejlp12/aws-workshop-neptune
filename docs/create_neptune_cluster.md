@@ -40,7 +40,7 @@ In this section, we will create a simple Neptune DB cluster with a primary node 
     - **Backup retention period**: **1 day**
     - Uncheck **Enable Encryption**
     - Uncheck **Audit Log**
-    - On Maintenance setting
+    - On Maintenance setting:
        - Check **Enable auto minor version upgrade** 
        - Choose **Select window** for maintenance, and set the time as you wish
     - Uncheck **Enable deletion protection**
@@ -50,6 +50,8 @@ In this section, we will create a simple Neptune DB cluster with a primary node 
 12. Click **Create database**
     
     > Note: After clicking Create database the creating process will take some time to complete. You need to wait and click reload button on the top of the list for several times. 
+
+    You will see a cluster consist of one Primary (Writer) and one Replica (Reader) created.
 
     ![Creating Neptune database](assets/images/neptune_creating.png)
 
@@ -69,11 +71,11 @@ In the next section, we will access the Primary Neptune node.
 
 ## Accessing your cluster
 
-In this lab, we will be running Gremlin commands in the local computer or from Cloud9 IDE.  In order to access the Neptune cluster, you will need to open up proper **security groups** to enable connection between your local computer (or Cloud9 instace) and the Neptune node.  
+In this lab, you will run some Gremlin commands remotely from the local computer or the Cloud9 IDE.  In order to access the Neptune cluster, you will need to open up proper **security groups** to enable connection between your local computer (or Cloud9 instance) and the Neptune node.  
 
-To Enable traffic, perform the following:
+To enable the traffic going through Neptune cluster, perform the following:
 
-1. Click  the Witer (Primary) database ==`neptune-{yourname}`==, then scroll down your page
+1. Click  the Witer (Primary) database ==`neptune-{yourname}`==, then scroll down your page.
 2. On the **Connectivity & security** tab, select the security group that has Type: **CIDR/IP - Inbound**
    
     ![](assets/images/neptune_instance_detail_connectivity.png)
