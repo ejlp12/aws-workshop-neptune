@@ -70,20 +70,9 @@ In this section, you will learn basic Gremlin to Access the Graph.
 
 6. Add edges.
 
-    Here are two different ways to add an edge.
-
     ```
     g.V('1').addE('knows').to(g.V('2')).property('weight', 0.5).next()
     g.addE('knows').from(g.V('1')).to(g.V('4')).property('weight', 1.0) 
-    ```
-
-    Add more edges:
-
-    ```
-    g.V('1').addE('created').to(g.V('3')).property('weight', 0.4).next()
-    g.V('4').addE('created').to(g.V('5')).property('weight', 1.0).next()
-    g.V('4').addE('knows').to(g.V('3')).property('weight', 0.4).next()
-    g.V('6').addE('created').to(g.V('3')).property('weight', 0.2)
     ```
 
 7. Delete a vertex.
