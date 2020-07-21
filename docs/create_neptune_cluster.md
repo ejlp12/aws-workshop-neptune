@@ -41,8 +41,8 @@ In this section, we will create a simple Neptune DB cluster with a primary node 
     - Uncheck **Enable Encryption**
     - Uncheck **Audit Log**
     - On Maintenance setting
-      - Check **Enable auto minor version upgrade** 
-      - Choose **Select window** for maintenance, and set the time as you wish
+       - Check **Enable auto minor version upgrade** 
+       - Choose **Select window** for maintenance, and set the time as you wish
     - Uncheck **Enable deletion protection**
 
     Examine all the fields, and	leave the remanding sections to their default values and go to the bottom of the page. 
