@@ -28,8 +28,8 @@ On the **Connectivity**, configure as following
     - **VPC security groups**: Create new VPC Security group, ==`sg_neptune_{YOUR_NAME}`==
     - **Database Port**: Use default (8182)
 1.  It is good to always having a tag, add a Tag with "Key": `purpose` and "Value": `workshop-july-2020`
-2.  
-3.  Click **Additional Configuration**, Database options
+   
+2.  Click **Additional Configuration**, Database options
     - **DB instance identifier**: ==`neptune-{YOUR_NAME}`==
     - **DB parameter group**: **default.neptune1**
     - **DB cluster parameter group**: **default.neptune1**
@@ -44,7 +44,7 @@ On the **Connectivity**, configure as following
 
     Examine all the fields, and	leave the remanding sections to their default values and go to the bottom of the page. 
 
-4.  Click **Create database**
+3.  Click **Create database**
     
     > Note: After clicking Create database the creating process will take some time to complete. You need to wait and click reload button on the top of the list for several times. 
 
@@ -59,7 +59,9 @@ On the **Connectivity**, configure as following
         When you have a read Replica, the reader endpoint will automatically use read replica for all read only queries. But if you only have one Neptune instance then reader endpoint will use Primary DB instance.    
 
 
-Up to this point, you have created a new Neptune cluster with a Primary and Replica node.  The Replica node `neptune-{yourname}-{region-az}` can be promoted to Primary if the existing Primary database goes down.  In the next section, we will access the Primary Neptune node.
+Up to this point, you have created a new Neptune cluster with a Primary and Replica node.  The Replica node `neptune-{yourname}-{region-az}` can be promoted to Primary if the existing Primary database goes down.  
+
+In the next section, we will access the Primary Neptune node.
 
 ## Accessing your cluster
 
@@ -67,12 +69,13 @@ In this lab, we will be running Gremlin commands in the local computer or from C
 
 To Enable traffic, perform the following:
 
-1. Select Witer (Primary) database ==`neptune-{yourname}`==
+1. Click  the Witer (Primary) database ==`neptune-{yourname}`==, then scroll down your page
 2. On the **Connectivity & security** tab, select the security group that has Type: **CIDR/IP - Inbound**
    
-   ![](assets/images/neptune_instance_detail_connectivity.png)
+    ![](assets/images/neptune_instance_detail_connectivity.png)
 
 3. Click on the **Inbound rules** tab
+   
     ![](assets/images/edit_security_group.png)
 
 5.	Click on **Edit inbound rules**
