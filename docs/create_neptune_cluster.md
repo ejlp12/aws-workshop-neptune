@@ -205,25 +205,28 @@ The Gremlin Console is an interactive text based console. It allows you to exper
     ![](assets/images/cloud9_gremlin_neptune_config.png)
 
 4. Start Gremlin Console 
-   ```
-   bin/gremlin.sh
-   ```
-   You are now at the `gremlin>` prompt. You will enter the remaining steps at this prompt.
-   ![](assets/images/cloud9_gremlin_console_connected.png)
+    ```
+    bin/gremlin.sh
+    ```
+    You are now at the `gremlin>` prompt. You will enter the remaining steps at this prompt.
+    
+    ![](assets/images/cloud9_gremlin_console_connected.png)
 
 5. At the `gremlin>` prompt, enter the following to connect to the Neptune DB instance.
-   ```
-   :remote connect tinkerpop.server conf/neptune-remote.yaml
-   ```
+    ```
+    :remote connect tinkerpop.server conf/neptune-remote.yaml
+    ```
 
 6. At the `gremlin>` prompt, enter the following to switch to remote mode. This sends all Gremlin queries to the remote connection.
-   ```
-   :remote console
-   ```
-7. Enter the following to send a query to the Gremlin Graph.
-   ```
-   g.V().limit(1)
-   ```
+    ```
+    :remote console
+    ```
+7. Enter the following to send a query to the Gremlin Graph. This command basically will get vertexs on the database but we limit to only one vertex. 
+    ```
+    g.V().limit(1)
+    ```
+    Since we don't have any data yet, the result will be empty.
+    
 8. When you are finished, enter the following to exit the Gremlin Console.
    ```
    :exit
