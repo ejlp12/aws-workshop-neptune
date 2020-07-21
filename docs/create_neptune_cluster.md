@@ -95,17 +95,20 @@ We will use `curl` command.
 
 1. Create a new tab in your browser, then access [Cloud9 Console](https://console.aws.amazon.com/cloud9/home?region=us-east-1) 
 2. Create an new Cloud9 Environment.
-3. Run this commands in the Terminal of your Cloud9 IDE.
+3. To connect to Neptune using HTTPS/WebSocket, you need a SSL CA certificate from AWS. 
+   Run this commands in the Terminal of your Cloud9 IDE.
+
    ```bash
    wget https://www.amazontrust.com/repository/SFSRootCAG2.pem
    ```
 
 4. Set location of CA certificate for `curl` 
-   ```
+   ```bash
+   /home/ec2-user/environment/
    export CURL_CA_BUNDLE=/home/ec2-user/environment/SFSRootCAG2.pem 
    ```
 5. Use this command to check the status of the Neptune instance
-   ```
+   ```bash
    curl -v https://neptune-{YOURNAME}.xxxx.us-east-1.neptune.amazonaws.com:8182/status 
    ```
    If connection successful you shoud get following response:
@@ -165,7 +168,7 @@ The Gremlin Console is an interactive text based console. It allows you to exper
 3. In the `conf/` subdirectory of the extracted directory, create a file named `neptune-remote.yaml` with the following text. Replace `your-neptune-endpoint` with the hostname or IP address of your Neptune DB instance. 
 
     !!! Warning The square brackets (`[ ]`) are required. 
-    
+
    ```
    hosts: [your-neptune-endpoint]
    port: 8182
