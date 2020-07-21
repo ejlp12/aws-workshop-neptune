@@ -21,15 +21,18 @@ In this section, we will create a simple Neptune DB cluster with a primary node 
     > Selecting this option will makes Amazon Neptune maintain a synchronous replica in a different Availability Zone than the Primary DB instance. Amazon Neptune will automatically fail over to the replica in the case of a planned or unplanned outage of the Primary.
 
 7. For **DB instance size**, select `db.r5.large` as the type of your EC2 instance for running the Neptune instance
+   
 8. On the **Availability & durability**, select **Create read replica in different AZ**
-On the **Connectivity**, configure as following
+   
+9. On the **Connectivity**, configure as following
     - **VPC**: Use default
     - **Subnet group**: Use default
     - **VPC security groups**: Create new VPC Security group, ==`sg_neptune_{YOUR_NAME}`==
     - **Database Port**: Use default (8182)
-9.  It is good to always having a tag, add a Tag with "Key": `purpose` and "Value": `workshop-july-2020`
+  
+10.  It is good to always having a tag, add a Tag with "Key": `purpose` and "Value": `workshop-july-2020`
    
-10.  Click **Additional Configuration**, Database options
+11. Click **Additional Configuration**, Database options
     - **DB instance identifier**: ==`neptune-{YOUR_NAME}`==
     - **DB parameter group**: **default.neptune1**
     - **DB cluster parameter group**: **default.neptune1**
@@ -44,14 +47,15 @@ On the **Connectivity**, configure as following
 
     Examine all the fields, and	leave the remanding sections to their default values and go to the bottom of the page. 
 
-3.  Click **Create database**
+12. Click **Create database**
     
     > Note: After clicking Create database the creating process will take some time to complete. You need to wait and click reload button on the top of the list for several times. 
 
     ![Creating Neptune database](assets/images/neptune_creating.png)
 
-17.	When your database instance status changes to Available.  Click  ==`neptune-{yourname}-cluster`== from the **DB indentifier** column
-18.	Scroll down to **Connectivity & Security** section and note down your **Endpoints** (both the Reader and Writer endpoint).  These endpoints are needed in later sections of the lab.
+13. When your database instance status changes to Available.  Click  ==`neptune-{yourname}-cluster`== from the **DB indentifier** column
+    
+13. Scroll down to **Connectivity & Security** section and note down your **Endpoints** (both the Reader and Writer endpoint).  These endpoints are needed in later sections of the lab.
     
     ![Neptune Endpoint](assets/images/neptune-endpoint.png)
  
@@ -82,7 +86,7 @@ To Enable traffic, perform the following:
 
 6.	Modify the existing inbound rule 
     - Type: `Custom TCP` 
-    - For **Source** fill in with your IP address of your machine and specify the address using the `/32` prefix length. Or you add open to the world usinf `0.0.0.0/0` (Not recommended for production!) 
+    - For **Source** fill in with your IP address of your machine and specify the address using the `/32` prefix length. Or you can make Neptune accessible from anywhere using `0.0.0.0/0` (This is not recommended for production!) 
     
     ![](assets/images/edit_security_group_inbound.png)
 
