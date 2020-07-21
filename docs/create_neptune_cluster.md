@@ -93,65 +93,77 @@ To Enable traffic, perform the following:
 
 ### Test Connection
 
-We can now test our connection to Neptune Primary node's endpoint URL using HTTPS. 
-We will use `curl` command.
+You can now test our connection to Neptune Primary node's endpoint URL via HTTPS. 
+
+We will use AWS Cloud9, an online Intergrated Development Environment (IDE) that can be accessed from your browser.
 
 1. Create a new tab in your browser, then access [Cloud9 Console](https://console.aws.amazon.com/cloud9/home?region=us-east-1) 
-2. Create an new Cloud9 Environment.
-3. To connect to Neptune using HTTPS/WebSocket, you need a SSL CA certificate from AWS. 
+   
+2. Click the **Create environment** button
+3. On the **Name environment** page, for **Name**, enter a name for your environment: `neptune-workshop`. You can leave blank the **Description**
+4. Choose **Next step**
+5. On the **Configure settings** page, 
+    - For **Environment** type, choose **Create a new instance for environment (EC2)**.
+    - For **Instance type**, choose **t3.small**
+    - For **Platform**, choose **Amazon Linux**
+    - Choose a value for **Cost-saving setting**, 
+
+6. Choose **Next step**.
+   
+7. To connect to Neptune using HTTPS/WebSocket, you need a SSL CA certificate from AWS. 
    Run this commands in the Terminal of your Cloud9 IDE.
 
-   ```bash
-   wget https://www.amazontrust.com/repository/SFSRootCAG2.pem
-   ```
+    ```bash
+    wget https://www.amazontrust.com/repository/SFSRootCAG2.pem
+    ```
 
-4. Set location of CA certificate for `curl` 
-   ```bash
-   /home/ec2-user/environment/
-   export CURL_CA_BUNDLE=/home/ec2-user/environment/SFSRootCAG2.pem 
-   ```
-5. Use this command to check the status of the Neptune instance
-   ```bash
-   curl -v https://neptune-{YOURNAME}.xxxx.us-east-1.neptune.amazonaws.com:8182/status 
-   ```
-   If connection successful you shoud get following response:
-   ```json
-   { "status":"healthy",
-     "startTime":"Sat Jul 18 06:35:36 UTC 2020",
-     "dbEngineVersion":"1.0.2.2.R2",
-     "role":"writer",
-     "gremlin":{"version":"tinkerpop-3.4.3"},
-     "sparql":{"version":"sparql-1.1"},
-     "labMode":{
+8. Set location of CA certificate for `curl` 
+    ```bash
+    /home/ec2-user/environment/
+    export CURL_CA_BUNDLE=/home/ec2-user/environment/SFSRootCAG2.pem 
+    ```
+9.  Use this command to check the status of the Neptune instance
+    ```bash
+    curl -v https://neptune-{YOURNAME}.xxxx.us-east-1.neptune.amazonaws.com:8182/status 
+    ```
+    If connection successful you shoud get following response:
+    ```json
+    { "status":"healthy",
+      "startTime":"Sat Jul 18 06:35:36 UTC 2020",
+      "dbEngineVersion":"1.0.2.2.R2",
+      "role":"writer",
+      "gremlin":{"version":"tinkerpop-3.4.3"},
+      "sparql":{"version":"sparql-1.1"},
+      "labMode":{
          "ObjectIndex":"disabled",
          "ReadWriteConflictDetection":"enabled"
-     }
-   }
-   ``` 
+      }
+    }
+    ``` 
 
-6. Try to access graph data using Gremlin via REST API. This command will get the vertexs (nodes) but limit to only one vertex.
+11. Try to access graph data using Gremlin via REST API. This command will get the vertexs (nodes) but limit to only one vertex.
    
     ```
     curl -X POST -d '{"gremlin":"g.V().limit(1)"}' https://{your-neptune-endpoint}:8182/gremlin
     ```
 
-7. You can also try simple SPARQL query
-   ```
-   curl -v  -X POST \
-   --data-binary 'query=select ?s ?p ?o where {?s ?p ?o}' \
-   https://neptue-{YOURNAME}.xxxx.us-east-1.neptune.amazonaws.com:8182/sparql
-   ```
-   Because we are querying an **empty** DB, the result is very predictable:
-   ```json
-   {
-       "head" : {
-       "vars" : [ "s", "p", "o" ]
-     },
-     "results" : {
-       "bindings" : [ ]
-     }
-   }   
-   ```       
+12. You can also try simple SPARQL query
+    ```
+    curl -v  -X POST \
+    --data-binary 'query=select ?s ?p ?o where {?s ?p ?o}' \
+    https://neptue-{YOURNAME}.xxxx.us-east-1.neptune.amazonaws.com:8182/sparql
+    ```
+    Because we are querying an **empty** DB, the result is very predictable:
+    ```json
+    {
+        "head" : {
+        "vars" : [ "s", "p", "o" ]
+      },
+      "results" : {
+        "bindings" : [ ]
+      }
+    }   
+    ```       
 
 ### Setup Gremlin Console
 
@@ -162,30 +174,35 @@ The Gremlin Console is an interactive text based console. It allows you to exper
 
 1. Go to Cloud9 Console in your browser
 2. Run this commands in the Terminal of your Cloud9 IDE.
-   ```bash
-   sudo yum install -y java-1.8.0-devel
-   sudo alternatives --set java /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/java
-   export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk.x86_64
-   wget https://archive.apache.org/dist/tinkerpop/3.4.1/apache-tinkerpop-gremlin-console-3.4.1-bin.zip
-   unzip apache-tinkerpop-gremlin-console-3.4.1-bin.zip
-   cd apache-tinkerpop-gremlin-console-3.4.1
-   wget https://www.amazontrust.com/repository/SFSRootCAG2.pem
-   ```
-   You access your terminal in 
-   ![](assets/images/cloud9_install_gremlin_console.png)
+    ```bash
+    sudo yum install -y java-1.8.0-devel && \
+    sudo alternatives --set java /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/java && \
+    export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk.x86_64 && \
+    wget https://archive.apache.org/dist/tinkerpop/3.4.1/apache-tinkerpop-gremlin-console-3.4.1-bin.zip && \
+    unzip apache-tinkerpop-gremlin-console-3.4.1-bin.zip && \
+    cd apache-tinkerpop-gremlin-console-3.4.1 && \
+    wget https://www.amazontrust.com/repository/SFSRootCAG2.pem
+    ```
+
+    You can copy the command and paste in your terminal:
+
+    ![](assets/images/cloud9_install_gremlin_console.png)
 
 3. In the `conf/` subdirectory of the extracted directory, create a file named `neptune-remote.yaml` with the following text. Replace `your-neptune-endpoint` with the hostname or IP address of your Neptune DB instance. 
 
-    !!! Warning The square brackets (`[ ]`) are required. 
+    !!! Warning 
+        The square brackets (`[ ]`) are required. 
 
-   ```
-   hosts: [your-neptune-endpoint]
-   port: 8182
-   connectionPool: { enableSsl: true, trustCertChainFile: "SFSRootCAG2.pem"}
-   serializer: { className: org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0, config: { serializeResultToString: true }}
-   ```
-   Your file should look like this:
-   ![](assets/images/cloud9_gremlin_neptune_config.png)
+    ```
+    hosts: [your-neptune-endpoint]
+    port: 8182
+    connectionPool: { enableSsl: true, trustCertChainFile: "SFSRootCAG2.pem"}
+    serializer: { className: org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0, config: { serializeResultToString: true }}
+    ```
+    
+    Your file should look like this:
+    
+    ![](assets/images/cloud9_gremlin_neptune_config.png)
 
 4. Start Gremlin Console 
    ```
