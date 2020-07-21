@@ -93,12 +93,18 @@ To Enable traffic, perform the following:
 We can now test our connection to Neptune Primary node's endpoint URL using HTTPS. 
 We will use `curl` command.
 
+1. Create a new tab in your browser, then access [Cloud9 Console](https://console.aws.amazon.com/cloud9/home?region=us-east-1) 
+2. Create an new Cloud9 Environment.
+3. Run this commands in the Terminal of your Cloud9 IDE.
+   ```bash
+   wget https://www.amazontrust.com/repository/SFSRootCAG2.pem
+   ```
 
-1. Set location of CA certificate for `curl` 
+4. Set location of CA certificate for `curl` 
    ```
-   export CURL_CA_BUNDLE=/home/ec2-user/environment/apache-tinkerpop-gremlin-console-3.4.7/SFSRootCAG2.pem 
+   export CURL_CA_BUNDLE=/home/ec2-user/environment/SFSRootCAG2.pem 
    ```
-2. Use this command to check the status of the Neptune instance
+5. Use this command to check the status of the Neptune instance
    ```
    curl -v https://neptune-{YOURNAME}.xxxx.us-east-1.neptune.amazonaws.com:8182/status 
    ```
@@ -117,7 +123,7 @@ We will use `curl` command.
    }
    ``` 
 
-3. You can also try simple Sparql query
+6. You can also try simple Sparql query
    ```
    curl -v  -X POST \
    --data-binary 'query=select ?s ?p ?o where {?s ?p ?o}' \
@@ -142,7 +148,7 @@ The following section walks you through installing and configuring the Gremlin C
 The Gremlin Console is an interactive text based console. It allows you to experiment with TinkerPop graphs and queries in a REPL (read-eval-print loop) environment.
 
 
-1. Go to Cloud9 tab in your browser
+1. Go to Cloud9 Console in your browser
 2. Run this commands in the Terminal of your Cloud9 IDE.
    ```bash
    sudo yum install -y java-1.8.0-devel
