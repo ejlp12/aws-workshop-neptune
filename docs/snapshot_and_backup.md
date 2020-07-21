@@ -55,4 +55,3 @@ When we create a database, if you notice, there is a configuration for backup. N
     - Snapshot is stored in S3
     - You can restore, copy, share or delete a snapshot. You can copy a snapshot between regions, and you can share a snapshot across accounts. 
   
-    More info about [Neptune Backup](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-storage-backup.html)

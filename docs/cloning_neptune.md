@@ -1,6 +1,6 @@
 ## Cloning Neptune Database
 
-Create a clone copy of your aurora database by performing the following steps:
+Create a clone copy of your Neptune database by performing the following steps:
 
 1.	Go to the [Neptune Console](https://console.aws.amazon.com/neptune/home)
 2.	Click on **Databases** 
