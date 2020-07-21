@@ -5,8 +5,15 @@
 1. Open your Cloud9 IDE, in the terminal run this commands:
 
     ```
-    sudo python3 -m pip install --upgrade pip
-    python3 -m pip install gremlinpython
+    sudo pip install virtualenvwrapper
+    echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
+    echo "export PROJECT_HOME=$HOME/Devel" >> ~/.bashrc
+    echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+
+    source ~/.bashrc
+    mkvirtualenv neptunedemo --python=python3.6
+    pip install chalice
+    pip install gremlinpython
     ```
 
 2. Create a file `neptune_test.py` and change ==`{your-neptune-endpoint}`== to your Neptune endpoint.
