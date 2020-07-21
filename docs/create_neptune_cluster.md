@@ -126,13 +126,19 @@ We will use `curl` command.
    }
    ``` 
 
-6. You can also try simple Sparql query
+6. Try to access graph data using Gremlin via REST API. This command will get the vertexs (nodes) but limit to only one vertex.
+   
+    ```
+    curl -X POST -d '{"gremlin":"g.V().limit(1)"}' https://{your-neptune-endpoint}:8182/gremlin
+    ```
+
+7. You can also try simple SPARQL query
    ```
    curl -v  -X POST \
    --data-binary 'query=select ?s ?p ?o where {?s ?p ?o}' \
    https://neptue-{YOURNAME}.xxxx.us-east-1.neptune.amazonaws.com:8182/sparql
    ```
-   Because we are querying an empty DB, the result is very predictable:
+   Because we are querying an **empty** DB, the result is very predictable:
    ```json
    {
        "head" : {
