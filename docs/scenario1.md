@@ -8,7 +8,7 @@ Credit card fraud is a wide-ranging term for theft and fraud committed using or 
 
 The sample dataset that we are referring here is consists of users, merchants and their credit card transactions.
 
-![Credit Card Fraud Graph](https://github.com/abhmish/Neptune/blob/master/img/credicardfraud.jpg)
+![Credit Card Fraud Graph](https://raw.githubusercontent.com/abhmish/Neptune/master/img/fraudring.png)
 
 
 ## Query data using Apache TinkerPop Gremlin
@@ -18,9 +18,11 @@ We are going to use Apache TinkerPop Gremlin to query data through Jupyter Noteb
 
 ### List Persons
 
-`g.V().hasLabel("Person").limit(5)`
+```
+g.V().hasLabel("Person").limit(5)
+```
 
-
+Output:
 ```
 ==>v[John]
 ==>v[Zoey]
@@ -31,8 +33,11 @@ We are going to use Apache TinkerPop Gremlin to query data through Jupyter Noteb
 
 ### List Merchants
 
-`g.V().hasLabel("Merchant").limit(5)`
+```
+g.V().hasLabel("Merchant").limit(5)
+```
 
+Output:
 ```
 ==>v[Justice]
 ==>v[Sears]
@@ -43,8 +48,11 @@ We are going to use Apache TinkerPop Gremlin to query data through Jupyter Noteb
 
 ### List Persons and merchants where they have done transactions
 
-`g.V().hasLabel("Person").project("person","merchants").by("name").by(out().fold())`
+````
+g.V().hasLabel("Person").project("person","merchants").by("name").by(out().fold())
+```
 
+Output:
 ```
 ==>[person:John,merchants:[v[Justice],v[Sprint],v[American_Apparel],v[Just_Brew_It],v[Soccer_for_the_City]]]
 ==>[person:Zoey,merchants:[v[Abercrombie],v[MacDonalds],v[Just_Brew_It],v[Subway],v[Amazon]]]
@@ -69,6 +77,7 @@ project("merchant","persons").by("name").by(inE().outV().fold())
 
 ```
 
+Output:
 ```
 ==>[merchant:Apple_Store,persons:[v[Paul],v[Marc],v[Olivia],v[Madison]]]
 ==>[merchant:Urban_Outfitters,persons:[v[Paul],v[Marc],v[Olivia],v[Madison]]]
@@ -91,6 +100,7 @@ project("Victim","Merchants", "Amount","Time").
   by(__.select('undisputed').by('time')).dedup()
 ```
 
+Output:
 ```
 ==>[Victim:Paul,Merchants:Sears,Amount:475,Time:Fri Mar 28 00:00:00 UTC 2014]
 ==>[Victim:Paul,Merchants:Wallmart,Amount:654,Time:Thu Mar 20 00:00:00 UTC 2014]
@@ -130,7 +140,9 @@ select("merchants","t","victim").group().
 unfold().select(values).dedup()
 ```
 
-```==>[Suspicious_Store:Sears,Count:2,Victims:[Paul,Marc]]
+Output:
+```
+==>[Suspicious_Store:Sears,Count:2,Victims:[Paul,Marc]]
 ==>[Suspicious_Store:Wallmart,Count:4,Victims:[Paul,Madison,Olivia,Marc]]
 ==>[Suspicious_Store:Abercrombie,Count:1,Victims:[Madison]]
 ==>[Suspicious_Store:MacDonalds,Count:1,Victims:[Madison]]
