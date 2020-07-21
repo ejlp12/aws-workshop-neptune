@@ -13,18 +13,23 @@ In this section, we will create a simple Neptune DB cluster with a primary node 
 1. In the AWS Management Console, on the **Services** menu, click [Neptune](https://console.aws.amazon.com/rds/).
 2. In the top-right bar, select the AWS **Region** in which you want to create the Neptune DB cluster. 
 3. In the **Dashboard** page, click **Launch Amazon Neptune**.
-   ![](assets/images/neptune-console.png)
+    
+    ![](assets/images/neptune-console.png)
+
 4. In the **Engine options** section, select latest version **Neptune 1.0.2.2.R2**
+   
 5. On the **Setting**, specify **DB cluster identifier** ==`neptune-{YOUR_NAME}-cluster`== (for example: `neptune-ejlp-cluster`)
+   
 6. For **Templates**, select **Production**.
     
-    > Selecting this option will makes Amazon Neptune maintain a synchronous replica in a different Availability Zone than the Primary DB instance. Amazon Neptune will automatically fail over to the replica in the case of a planned or unplanned outage of the Primary.
+    !!! Note
+        Selecting this option will makes Amazon Neptune maintain a synchronous replica in a different Availability Zone than the Primary DB instance. Amazon Neptune will automatically fail over to the replica in the case of a planned or unplanned outage of the Primary.
 
 7. For **DB instance size**, select `db.r5.large` as the type of your EC2 instance for running the Neptune instance
    
 8. On the **Availability & durability**, select **Create read replica in different AZ**
    
-9. On the **Connectivity**, configure as following
+9.  On the **Connectivity**, configure as following
     - **VPC**: Use default
     - **Subnet group**: Use default
     - **VPC security groups**: Create new VPC Security group, ==`sg_neptune_{YOUR_NAME}`==
@@ -57,7 +62,7 @@ In this section, we will create a simple Neptune DB cluster with a primary node 
 
 13. When your database instance status changes to Available.  Click  ==`neptune-{yourname}-cluster`== from the **DB indentifier** column
     
-13. Scroll down to **Connectivity & Security** section and note down your **Endpoints** (both the Reader and Writer endpoint).  These endpoints are needed in later sections of the lab.
+14. Scroll down to **Connectivity & Security** section and note down your **Endpoints** (both the Reader and Writer endpoint).  These endpoints are needed in later sections of the lab.
     
     ![Neptune Endpoint](assets/images/neptune-endpoint.png)
  
@@ -130,7 +135,7 @@ We will use AWS Cloud9, an online Intergrated Development Environment (IDE) that
     ```
 9.  Use this command to check the status of the Neptune instance
     ```bash
-    curl -v https://neptune-{YOURNAME}.xxxx.us-east-1.neptune.amazonaws.com:8182/status 
+    curl -v https://your-neptune-endpoint:8182/status 
     ```
     If connection successful you shoud get following response:
     ```json
