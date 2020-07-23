@@ -8,12 +8,13 @@
     
 ## AWS Console Access
 
-1. Navigate to https://dashboard.eventengine.run and enter the hash code you received. 
+1. Navigate to [https://dashboard.eventengine.run](https://dashboard.eventengine.run){target=_blank}:material-launch: and enter the hash code you received. 
 
-   ![](assets/images/ee-home.png)
-2. Sign into your account by clicking 'Proceed', then 'AWS Console' > 'Open AWS Console'. Make sure you work in the region that's associated with your account. **Your region may differ from the region that is shown.**
+    ![](assets/images/ee-home.png)
 
-   ![](assets/images/ee-login.png) 
+2. Sign into your account by clicking 'Proceed', then 'AWS Console' > **Open AWS Console**. Make sure you work in the region that's associated with your account. 
+
+    ![](assets/images/ee-login.png) 
 
 
 ## Setup Cloud9 IDE
@@ -28,14 +29,20 @@ This workshop requires you to run commands or scripts you will need to install A
 
 Below are the instructions for launching an instance:
 
-- In the AWS Management Console, on the **Services** menu, in the **Developer Tools** group click **[Cloud9](https://console.aws.amazon.com/cloud9)**.
-- Click **Create environment** on the right side.
-- Enter a **Name** (eg. `neptune-workshop`) and click **Next step**.
-- Leave all the defaults and click **Next step**.
-- Click **Create environment**.
-- The environment will open automatically after it has been provisioned. Browse back to the AWS Cloud9 console and you can click **Open IDE** on the environment you created to access it at anytime.
-- Keep the Cloud9 IDE tab open in your browser.
+1. In the AWS Management Console, on the **Services** menu, in the **Developer Tools** group click **[Cloud9](https://console.aws.amazon.com/cloud9/home){target=_blank}**.
+2. Click **Create environment** on the right side.
+3. Enter a **Name** (eg. `neptune-workshop`) and click **Next step**.
+4. Leave all the defaults and click **Next step**.
+5. Click **Create environment**.
+6. The environment will open automatically after it has been provisioned. Browse back to the AWS Cloud9 console and you can click **Open IDE** on the environment you created to access it at anytime.
+   
+    Keep the Cloud9 IDE tab in your browser.
   
+<br/>
 Open another browser tab for AWS Console:
 
-- Back into Event Engine dashboard and click **Open AWS Console** to open AWS Console in a new tab 
+1. Back into Event Engine dashboard and click **Open AWS Console** to open AWS Console in a new tab 
+
+2. Start the Lab. 
+   
+    Click on the link below: **Next - Create Neptune Cluster**.

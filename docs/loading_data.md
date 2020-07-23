@@ -22,31 +22,42 @@ To load data into Neptune database, perform the following:
     ```
     git clone https://github.com/ejlp12/Neptune
     ```
-2. Explore the sample data files in the `Neptune/data` directory. There are 2 sub directory `creditcardfraud` and `fraudring` that represent different use cases. 
+2. Explore the sample data files in the `Neptune/data` directory. There are 2 sub directories `creditcardfraud` and `fraudring` that represent different use cases. 
    
-3. Create bucket in S3 then copy all folders and files in the `data` folder to S3 bucket.
-   Change `ejlp` to your name
-   ```bash
-   YOUR_NAME="ejlp"
-   cd ~/environment/Neptune/data
-   aws s3 mb s3://neptune-workshop-${YOUR_NAME}-data
-   aws s3 sync . s3://neptune-workshop-ejlp-data
-   ```
-4. Check your data in [S3 Console](https://s3.console.aws.amazon.com/s3/home). From the S3 Console, select `neptune-workshop-YOURNAME-data` and you should see 2 folders:
-   ![](assets/images/s3_data.png)
-   Click `creditcardfraud` folder and you should see 3 txt files:
-   ![](assets/images/s3_data_creditcardfraud.png)
+    The following commands will create bucket in S3 then copy all folders and files in the `data` folder to S3 bucket. Change `ejlp` to your name.
+   
+    ```bash
+    YOUR_NAME="ejlp"
+    cd ~/environment/Neptune/data
+    aws s3 mb s3://neptune-workshop-${YOUR_NAME}-data
+    aws s3 sync . s3://neptune-workshop-${YOUR_NAME}-data
+    ```
+
+3. Now you can check your data from the [S3 Console](https://s3.console.aws.amazon.com/s3/home). 
+    
+    In the S3 Console, select `neptune-workshop-YOURNAME-data` and you should see 2 folders:
+    
+    ![](assets/images/s3_data.png)
+    
+    Click `creditcardfraud` folder and you should see 3 txt files:
+    
+    ![](assets/images/s3_data_creditcardfraud.png)
 
 ### Create S3 Endpoint
 
-1. Go to [VPC Console](https://console.aws.amazon.com/vpc/home)
-2. Select "Endpoint" in the left Menu
+Neptune's Buld Loader will access to S3 bucket to retrive the files. Neptune instances that located your VPC can be connected to S3 via VPC endpoint. Let's build it!
+
+1. Go to [VPC Console](https://console.aws.amazon.com/vpc/home){target=_blank}
+2. Select **Endpoint** in the navigation bar
 3. Click **Create Endpoint** button
 4. In **Service Catagory** keep it the section on **AWS Services**
    
     ![](assets/images/create_s3_vpc_endpoint1.png)
 
-5. In the **Service Name** table, filter using keyword "s3" then press Enter, then choose "com.amazonaws.us-east-1.s3" from the table
+5. In the **Service Name** table, filter using keyword "s3" then press Enter, then choose "com.amazonaws.us-east-1.s3" from the table.
+   
+    !!! Warning
+        Please make sure your S3 bucket that you created in the previous step is in `us-east-1`
    
 6. Select VPC where Neptune cluster is reside. If you use AWS Event Engine in a workshop then you should only have 1 VPC.
    
@@ -55,9 +66,10 @@ To load data into Neptune database, perform the following:
 8. Keep **Policy** setting to **Full Access**
    
     ![](assets/images/create_s3_vpc_endpoint2.png)
-9.  Click **Create Endpoint**.
+
+9. Click **Create Endpoint**.
     
-     Once it created, you should see your new enpoint in the list:
+    Once it created, you should see your new enpoint in the list:
     
     ![](assets/images/create_s3_vpc_endpoint.png)
    
@@ -65,7 +77,7 @@ To load data into Neptune database, perform the following:
 
 ### Create access key ID and secret access key
 
-We will load data by sending REST API request to Neptune cluster, so we need a credential for authentication.
+We will load data by sending REST API request to Neptune cluster, so we need a credential for the authentication.
 
 1. Go to [IAM Console](https://console.aws.amazon.com/iam/home)
 2. Select **User** in the left menu
@@ -76,13 +88,17 @@ We will load data by sending REST API request to Neptune cluster, so we need a c
 7. In the Filter policies, search for "neptune" and hit Enter, then select **NeptuneFullAccess** and **NeptuneConsoleFullAccess**
      
      ![](assets/images/iam_policies1.png)
+
 8. Change search box to "s3" and hit Enter, then select **AmazonS3FullAccess**
     
      ![](assets/images/iam_policies_s3.png)
 
 9.  Click **Next: Tags**
+    
 10. Click **Next: Review**
+
 11. Click **Create User**
+
 12. Click **Download CSV** and save the file in your machine and open it using text editor. We will need the value of **Access key ID** and **Secret access key** in next step.
      
      ![](assets/images/iam_accesskey.png)

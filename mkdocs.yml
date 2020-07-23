@@ -121,6 +121,7 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+  - attr_list
 
 # Page tree
 nav:
@@ -128,10 +129,10 @@ nav:
   - Preparation: getting-started.md
   - Hands on Lab: 
     - Create Neptune Cluster: create_neptune_cluster.md 
+    - Basic Gremlin: basic_gremlin.md    
     - Loading Data: loading_data.md
     - Working with Jupyter Notebook: work_with_notebook.md
     - Explore Graph Data: scenario1.md
-    - Basic Gremlin: query_gremlin.md
     - Create Read Replica: create_read_replica.md
     - Cloning Neptune: cloning_neptune.md
     - Snapshot and Backup: snapshot_and_backup.md

@@ -76,7 +76,11 @@ In the next section, we will access the Primary Neptune node.
 
 ## Accessing your cluster
 
-In this lab, you will run some Gremlin commands remotely from the local computer or the Cloud9 IDE.  In order to access the Neptune cluster, you will need to open up proper **security groups** to enable connection between your local computer (or Cloud9 instance) and the Neptune node.  
+In this lab, you will run some Gremlin commands remotely from the local computer or the Cloud9 IDE.  
+
+### Allowing Connection
+
+In order to access the Neptune cluster, you will need to open up proper **security groups** to enable connection between your local computer (or Cloud9 instance) and the Neptune node.  
 
 To enable the traffic going through Neptune cluster, perform the following:
 
@@ -93,13 +97,14 @@ To enable the traffic going through Neptune cluster, perform the following:
 
 6.	Modify the existing inbound rule 
     - Type: `Custom TCP` 
+    - Port: `8182`
     - For **Source** fill in with your IP address of your machine and specify the address using the `/32` prefix length. Or you can make Neptune accessible from anywhere using `0.0.0.0/0` (This is not recommended for production!) 
+  
+    !!! Tips "Knowing your IP address"
+        You can use a browser to know your IP address by accessing http://ifconfig.co or use command `curl ifconfig.co`
     
     ![](assets/images/edit_security_group_inbound.png)
 
-    !!! Tips "Knowing your IP address"
-        You can use a browser to know your IP address by accessing http://ifconfig.co or use command `curl ifconfig.co`
- 
 7.	Click **Save rules**
 
 ### Test Connection
@@ -108,36 +113,29 @@ You can now test our connection to Neptune Primary node's endpoint URL via HTTPS
 
 We will use AWS Cloud9, an online Intergrated Development Environment (IDE) that can be accessed from your browser.
 
-1. Create a new tab in your browser, then access [Cloud9 Console](https://console.aws.amazon.com/cloud9/home?region=us-east-1) 
+1. Open your Cloud9 tab in your browser.
    
-2. Click the **Create environment** button
-3. On the **Name environment** page, for **Name**, enter a name for your environment: `neptune-workshop`. You can leave blank the **Description**
-4. Choose **Next step**
-5. On the **Configure settings** page, 
-    - For **Environment** type, choose **Create a new instance for environment (EC2)**.
-    - For **Instance type**, choose **t3.small**
-    - For **Platform**, choose **Amazon Linux**
-    - Choose a value for **Cost-saving setting**, 
-
-6. Choose **Next step**.
-   
-7. To connect to Neptune using HTTPS/WebSocket, you need a SSL CA certificate from AWS. 
-   Run this commands in the Terminal of your Cloud9 IDE.
+2. To connect to Neptune using HTTPS/WebSocket, you need an SSL CA certificate from AWS.
+    
+    Run this commands in the Terminal of your Cloud9 IDE.
 
     ```bash
+    cd /home/ec2-user/environment/
     wget https://www.amazontrust.com/repository/SFSRootCAG2.pem
     ```
 
-8. Set location of CA certificate for `curl` 
+3. Set location of CA certificate for `curl` 
+   
     ```bash
-    /home/ec2-user/environment/
     export CURL_CA_BUNDLE=/home/ec2-user/environment/SFSRootCAG2.pem 
     ```
-9.  Use this command to check the status of the Neptune instance
+
+4. Use this command to check the status of the Neptune instance
+   
     ```bash
     curl -v https://your-neptune-endpoint:8182/status 
     ```
-    If connection successful you shoud get following response:
+    If connection successful you shoud get a response similar to this:
     ```json
     { "status":"healthy",
       "startTime":"Sat Jul 18 06:35:36 UTC 2020",
@@ -152,29 +150,34 @@ We will use AWS Cloud9, an online Intergrated Development Environment (IDE) that
     }
     ``` 
 
-11. Try to access graph data using Gremlin via REST API. This command will get the vertexs (nodes) but limit to only one vertex.
+5.  Try to access graph data using Gremlin via REST API. 
+     
+     This command will get the vertexs (nodes) but limit the result to only one vertex. Change `{your-neptune-endpoint}` to your real Neptune endpoint.
    
-    ```
-    curl -X POST -d '{"gremlin":"g.V().limit(1)"}' https://{your-neptune-endpoint}:8182/gremlin
-    ```
+     ```
+     curl -X POST -d '{"gremlin":"g.V().limit(1)"}' \
+     https://{your-neptune-endpoint}:8182/gremlin
+     ```
 
-12. You can also try simple SPARQL query
-    ```
-    curl -v  -X POST \
-    --data-binary 'query=select ?s ?p ?o where {?s ?p ?o}' \
-    https://neptue-{YOURNAME}.xxxx.us-east-1.neptune.amazonaws.com:8182/sparql
-    ```
-    Because we are querying an **empty** DB, the result is very predictable:
-    ```json
-    {
-        "head" : {
-        "vars" : [ "s", "p", "o" ]
-      },
-      "results" : {
-        "bindings" : [ ]
-      }
-    }   
-    ```       
+6.  You can also try simple SPARQL query
+   
+     ```
+     curl -v  -X POST \
+     --data-binary 'query=select ?s ?p ?o where {?s ?p ?o}' \
+     https://{your-neptune-endpoint}:8182/sparql
+     ```
+    
+     Because we are querying an **empty** DB, the result is very predictable:
+     ```json
+     {
+         "head" : {
+         "vars" : [ "s", "p", "o" ]
+       },
+       "results" : {
+         "bindings" : [ ]
+       }
+     }   
+     ```       
 
 ### Setup Gremlin Console
 
@@ -199,10 +202,11 @@ The Gremlin Console is an interactive text based console. It allows you to exper
 
     ![](assets/images/cloud9_install_gremlin_console.png)
 
-3. In the `conf/` subdirectory of the extracted directory, create a file named `neptune-remote.yaml` with the following text. Replace `your-neptune-endpoint` with the hostname or IP address of your Neptune DB instance. 
+3. In the `conf/` subdirectory of the extracted directory, create a file named `neptune-remote.yaml` with the following text.  
 
     !!! Warning 
-        The square brackets (`[ ]`) are required. 
+        - Replace `your-neptune-endpoint` with the hostname or IP address of your Neptune DB instance.
+        - The square brackets (`[ ]`) are required. 
 
     ```
     hosts: [your-neptune-endpoint]
@@ -215,7 +219,8 @@ The Gremlin Console is an interactive text based console. It allows you to exper
     
     ![](assets/images/cloud9_gremlin_neptune_config.png)
 
-4. Start Gremlin Console 
+4. Start Gremlin Console from your Terminal:
+     
     ```
     bin/gremlin.sh
     ```

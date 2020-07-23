@@ -2,27 +2,34 @@
 
 In this section, you will learn basic Gremlin to Access the Graph.
 
-1. Add vertex with label and property.
+1. From your Cloud9 terminal, start the Gremlin Console again and start to connect to Neptune.
+
+    ```
+    :remote connect tinkerpop.server conf/neptune-remote.yaml
+    :remote console
+    ```
+
+2. Add vertex with label and property.
 
     ```
     g.addV('person').property('name', 'justin')
     ```
 
-    !!! Info 
+    !!! Info ""
         The vertex is assigned a string ID containing a GUID. All vertex IDs are strings in Neptune.
 
-2. Add a vertex with custom id.
+3. Add a vertex with custom id.
 
     ```
     g.addV('person').property(id, '1').property('name', 'martin')
     ```
 
-    !!! Info 
+    !!! Info ""
         The `id` property is not quoted. It is a keyword for the ID of the vertex. The vertex ID here is a string with the number 1 in it.
         
         Normal property names must be contained in quotation marks.
 
-3. Change property or add property if it doesn't exist.
+4. Change property or add property if it doesn't exist.
 
 
     Here you are changing the `name` property for the vertex from the previous step. This removes all existing values from the `name` property.
@@ -31,23 +38,23 @@ In this section, you will learn basic Gremlin to Access the Graph.
     g.V('1').property(single, 'name', 'marko')
     ```
 
-    !!! Info
+    !!! Info ""
         If you didn't specify "single", it instead appends the value to the name property if it hasn't done so already.
 
-4. Add property, but append property if property already has a value.
+5. Add property, but append property if property already has a value.
 
     ```
     g.V('1').property('age', 29)
     ```
 
-    !!! Info
+    !!! Info ""
         Neptune uses set cardinality as the default action.
         
         This command adds the `age` property with the value `29`, but it does not replace any existing values.
         
         If the `age` property already had a value, this command appends `29` to the property. For example, if the `age` property was `27`, the new value would be `[ 27, 29 ]`.
 
-5. Add multiple vertices.
+6. Add multiple vertices.
    
     You can send multiple statements at the same time to Neptune. 
 
@@ -61,21 +68,21 @@ In this section, you will learn basic Gremlin to Access the Graph.
     g.addV('person').property(id, '6').property('name', 'peter').property('age', 35)
     ```
 
-    !!! Info Note
+    !!! Info ""
         The Gremlin Console sends a separate command at every newline ('\n'), so they are each a separate transaction in that case. This example has all the commands on separate lines for readability. Remove the newline ('\n') characters to send it as a single command via the Gremlin Console.
         
         All statements other than the last statement must end in a terminating step, such as `.next()` or `.iterate()`, or they will not run. The Gremlin Console does not require these terminating steps.
         
         All statements that are sent together are included in a single transaction and succeed or fail together.
 
-6. Add edges.
+7. Add edges.
 
     ```
     g.V('1').addE('knows').to(g.V('2')).property('weight', 0.5).next()
     g.addE('knows').from(g.V('1')).to(g.V('4')).property('weight', 1.0) 
     ```
 
-7. Delete a vertex.
+8. Delete a vertex.
    
     Removes the vertex with the `name` property equal to `justin`.
 
@@ -108,12 +115,12 @@ In this section, you will learn basic Gremlin to Access the Graph.
     g.addV("Label1::Label2::Label3") 
     ```
 
-    !!! Info
-        The hasLabel step matches this vertex with any of those three labels: hasLabel("Label1"), hasLabel("Label2"), and hasLabel("Label3").
+    !!! Info ""
+        - The hasLabel step matches this vertex with any of those three labels: hasLabel("Label1"), hasLabel("Label2"), and hasLabel("Label3").
 
-        The `::` delimiter is reserved for this use only.
+        - The `::` delimiter is reserved for this use only.
 
-        You cannot specify multiple labels in the hasLabel step. For example, hasLabel("Label1::Label2") does not match anything.
+        - You cannot specify multiple labels in the hasLabel step. For example, hasLabel("Label1::Label2") does not match anything.
 
 5.  Specify Time/date.
 
@@ -121,10 +128,10 @@ In this section, you will learn basic Gremlin to Access the Graph.
      g.V().property(single, 'lastUpdate', datetime('2018-01-01T00:00:00'))
      ```
 
-     !!! Info
+    !!! Info ""
          Neptune does not support Java Date. Use the datetime() function instead. datetime() accepts an ISO8061-compliant datetime string.
          
-         It supports the following formats: YYYY-MM-DD, YYYY-MM-DDTHH:mm, YYYY-MM-DDTHH:mm:SS, and YYYY-MM-DDTHH:mm:SSZ.
+         It supports the following formats: `YYYY-MM-DD`, `YYYY-MM-DDTHH:mm`, `YYYY-MM-DDTHH:mm:SS`, and `YYYY-MM-DDTHH:mm:SSZ`.
 
 6. Here are several drop examples. Delete vertices, properties, or edges.
 
